@@ -1,9 +1,9 @@
 import "./Page.css";
 import { Jumbotron, Container } from "reactstrap";
 import { Button } from "reactstrap";
-import axios from "axios";
+import axiosBlog from "../../axiosBlog";
 import { useState, useEffect } from "react";
-import Spinner from '../../components/modalWindow/Spinner/Spinner';
+import Spinner from '../../components/UI/Spinner/Spinner';
 
 const Page = (props) => {
   const [loading, setLoading] = useState(false);
@@ -14,7 +14,7 @@ const Page = (props) => {
     setLoading(true);
     let fetchData = async () => {
       try {
-        let response = await axios.get(idPost + ".json");
+        let response = await axiosBlog.get(idPost + ".json");
         response = Object.keys(response.data).map((id) => {
           setSingleData({ ...response.data, id });
         });
@@ -33,7 +33,7 @@ const Page = (props) => {
     setLoading(true);
     let fetchData = async () => {
       try {
-        await axios.delete(idPost + ".json");
+        await axiosBlog.delete(idPost + ".json");
         return props.history.push("/");
       } catch (e) {
         console.error(e);

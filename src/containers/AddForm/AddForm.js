@@ -1,7 +1,7 @@
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
-import axios from "axios";
+import axiosBlog from "../../axiosBlog";
 import { useState } from "react";
-import Spinner from "../../components/modalWindow/Spinner/Spinner";
+import Spinner from '../../components/UI/Spinner/Spinner';
 
 const AddForm = (props) => {
   const [postValue, setPostValue] = useState();
@@ -26,7 +26,7 @@ const AddForm = (props) => {
             title: postValue.title,
             text: postValue.text,
           };
-          await axios.post(".json", newValue);
+          await axiosBlog.post(".json", newValue);
            props.history.push("/");
         } 
       } catch (e) {

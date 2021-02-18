@@ -1,8 +1,8 @@
 import "./EditForm.css";
-import axios from "axios";
+import axiosBlog from "../../axiosBlog";
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 import { useState, useEffect } from "react";
-import Spinner from '../../components/modalWindow/Spinner/Spinner';
+import Spinner from '../../components/UI/Spinner/Spinner';
 
 const EditForm = (props) => {
   const [singleData, setSingleData] = useState();
@@ -19,7 +19,7 @@ const EditForm = (props) => {
     let cleanupFunction = false;
     let fetchData = async () => {
       try {
-        let response = await axios.get(idPost + ".json");
+        let response = await axiosBlog.get(idPost + ".json");
         response = Object.keys(response.data).map((id) => {
           if(!cleanupFunction) {
           setSingleData({ ...response.data, id });
@@ -43,7 +43,7 @@ const EditForm = (props) => {
           title: singleData.title,
           text: singleData.text,
         };
-        await axios.put(idPost + ".json", newValue);
+        await axiosBlog.put(idPost + ".json", newValue);
         return props.history.push("/posts/" + idPost);
       } catch (e) {
         console.error(e);

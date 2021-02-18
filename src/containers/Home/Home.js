@@ -1,8 +1,9 @@
 import "./Home.css";
-import axios from "axios";
+import axiosBlog from "../../axiosBlog";
 import { Card, CardBody, CardTitle, CardSubtitle, Button } from "reactstrap";
-import { useState, useEffect } from 'react';
-import Spinner from '../../components/modalWindow/Spinner/Spinner';
+import { useState, useEffect } from "react";
+import Spinner from "../../components/UI/Spinner/Spinner";
+import withErrorHandler from "../../HOC/withErrorHandler";
 
 const Home = (props) => {
   const [data, setData] = useState([]);
@@ -12,7 +13,7 @@ const Home = (props) => {
     setLoading(true);
     let fetchData = async () => {
       try {
-        let response = await axios.get(`.json`);
+        let response = await axiosBlog.get(`.`);
         response = Object.keys(response.data).map((id) => {
           return { ...response.data[id], id };
         });
@@ -23,15 +24,14 @@ const Home = (props) => {
     };
     fetchData().finally(() => setLoading(false));
   }, []);
-  
+
   let jumpSinglePage = (id) => {
     return props.history.push("/posts/" + id);
   };
- 
+
   let renderBlogs = data.map((item) => {
     return (
       <Card key={item.id}>
-        {loading ? <Spinner /> : null}
         <CardBody>
           <CardSubtitle tag='h6' className='mb-2 text-muted'>
             {item.date}
@@ -44,7 +44,12 @@ const Home = (props) => {
       </Card>
     );
   });
-  return <div className='blog_wrapper'>{renderBlogs}</div>;
+  return (
+    <div className='blog_wrapper'>
+      {loading ? <Spinner /> : null}
+      {renderBlogs}
+    </div>
+  );
 };
 
-export default Home;
+export default withErrorHandler(Home, axiosBlog);

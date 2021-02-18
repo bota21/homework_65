@@ -1,9 +1,9 @@
 import './Spinner.css';
-import Backdrop from '../Backdrop/Backdrop';
+import Backdrop from '../../UI/Backdrop/Backdrop';
 
-const Spinner = () => {
+const Spinner = (props) => {
     return <>
-        <Backdrop />
+        <Backdrop show={true} />
     <div className="loader">loading</div>
     </>
 }
