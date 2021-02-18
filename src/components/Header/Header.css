@@ -1,0 +1,23 @@
+.header{
+    display: flex;
+    justify-content: space-between;
+    background: #E9ECEF;
+    padding: 10px 50px;
+}
+.logo{
+    font-size: 18px;
+    font-weight: 900;
+}
+.menu_link{
+    text-decoration: none;
+    color: rgb(100, 97, 97);
+    margin: 0 15px;
+}
+.menu_link:hover{
+    color: #1DA8F3;
+    text-decoration: none;
+}
+.menu_active{
+    font-weight: 700;
+    color: #1DA8F3;
+}

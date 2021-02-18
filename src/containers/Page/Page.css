@@ -1,0 +1,11 @@
+.Page{
+    margin: 10px 0;
+}
+.buttons{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end
+}
+.buttons button{
+    margin: 0 10px;
+}
