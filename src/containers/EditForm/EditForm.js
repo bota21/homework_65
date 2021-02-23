@@ -3,6 +3,7 @@ import axiosBlog from "../../axiosBlog";
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 import { useState, useEffect } from "react";
 import Spinner from '../../components/UI/Spinner/Spinner';
+import withErrorHandler from '../../HOC/withErrorHandler';
 
 const EditForm = (props) => {
   const [singleData, setSingleData] = useState();
@@ -15,7 +16,6 @@ const EditForm = (props) => {
     setSingleData({ ...singleData, [name]: value });
   };
   useEffect(() => {
-    setLoading(true);
     let cleanupFunction = false;
     let fetchData = async () => {
       try {
@@ -29,7 +29,7 @@ const EditForm = (props) => {
         console.error(e);
       }
     };
-    fetchData().finally(() => setLoading(false));
+    fetchData();
     return () => cleanupFunction = true;
   }, [idPost]);
 
@@ -87,4 +87,4 @@ const EditForm = (props) => {
   );
 };
 
-export default EditForm;
+export default withErrorHandler(EditForm, axiosBlog);

@@ -3,15 +3,13 @@ import { Jumbotron, Container } from "reactstrap";
 import { Button } from "reactstrap";
 import axiosBlog from "../../axiosBlog";
 import { useState, useEffect } from "react";
-import Spinner from '../../components/UI/Spinner/Spinner';
+import withErrorHandler from '../../HOC/withErrorHandler';
 
 const Page = (props) => {
-  const [loading, setLoading] = useState(false);
   const [singleData, setSingleData] = useState();
   let idPost = props.match.params.id;
 
   useEffect(() => {
-    setLoading(true);
     let fetchData = async () => {
       try {
         let response = await axiosBlog.get(idPost + ".json");
@@ -22,7 +20,7 @@ const Page = (props) => {
         console.error(e);
       }
     };
-    fetchData().finally(() => setLoading(false));
+    fetchData();
   }, [idPost]);
 
   let jumpEditPage = () => {
@@ -30,7 +28,6 @@ const Page = (props) => {
   };
 
   let deletePage = () => {
-    setLoading(true);
     let fetchData = async () => {
       try {
         await axiosBlog.delete(idPost + ".json");
@@ -39,12 +36,11 @@ const Page = (props) => {
         console.error(e);
       }
     };
-    fetchData().finally(() => setLoading(false));
+    fetchData();
   };
 
   return (
     <div className='Page'>
-      {loading ? <Spinner /> : null}
       {singleData ? (
         <Jumbotron fluid>
           <Container fluid>
@@ -66,4 +62,4 @@ const Page = (props) => {
   );
 };
 
-export default Page;
+export default withErrorHandler(Page, axiosBlog);

@@ -2,6 +2,7 @@ import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 import axiosBlog from "../../axiosBlog";
 import { useState } from "react";
 import Spinner from '../../components/UI/Spinner/Spinner';
+import withErrorHandler from '../../HOC/withErrorHandler';
 
 const AddForm = (props) => {
   const [postValue, setPostValue] = useState();
